@@ -112,6 +112,13 @@ describe 'linter helpers', ->
           expect ->
             helpers.rangeFromLineNumber(textEditor, 1, 50)
           .toThrow()
+    it 'cries when lineNumber is greater than the maximum line', ->
+      waitsForPromise ->
+        atom.workspace.open("#{__dirname}/fixtures/something.js").then ->
+          textEditor = atom.workspace.getActiveTextEditor()
+          expect ->
+            helpers.rangeFromLineNumber(textEditor, 8)
+          .toThrow()
 
   describe '::parse', ->
     it 'cries when no argument is passed', ->
